@@ -1,0 +1,52 @@
+%.%                     Compose lenses
+attr_l                  Construct a lens into an attribute
+attributes_l            Attributes lens
+body_l                  Body lens
+c_l                     Convenient lens composition
+class_l                 Class lens
+colnames_l              A lens into the column names of an object
+cols_l                  Column lens
+cond_il                 Conditional lens
+diag_l                  Lens into the diagonal of a matrix
+dim_l                   Dims lens
+dimnames_l              Dimnames lens
+drop_while_il           Conditional trim lens
+env_l                   Environment lens
+filter_il               Filter lens
+filter_l                Filter lens
+first_l                 A lens into the first element
+formals_l               Formals lens
+id_l                    The identity (trivial lens)
+index_l                 Construct a lens into an index/name
+indexes_l               Construct a lens into a subset of an object
+last_l                  A lens into the last element
+lens                    Construct a lens
+levels_l                Levels lens
+lower_tri_l             Lens into lower diagonal elements
+map_l                   Promote a lens to apply to each element of a
+                        list
+names_l                 A lens into the names of an object
+oscope                  Bind data to a lens
+over                    Map a function over a lens
+over_map                Map a function over a list lens
+over_with               Map a function over an in scope lens
+reshape_l               Lens into a new dimension(s)
+rev_l                   Reverse lens
+rownames_l              A lens into the row names of an object
+rows_l                  Row lens
+select_l                Tidyselect elements by name
+send                    Set one lens to the view of another
+send_over               Set one lens to the view of another
+                        (transformed)
+set                     Modify data with a lens
+slab_l                  Slab lens
+slice_l                 Slice lens
+slot_l                  Slot lens
+t_l                     Matrix transpose lens
+take_l                  Construct a lens into a prefix of a vector
+take_while_il           Conditional head lens
+to_l                    Promote a function to a 'getter' lens
+transpose_l             Lens into a list of rows
+unlist_l                Unlist lens
+upper_tri_l             Lens into upper diagonal elements
+view                    View data with a lens
