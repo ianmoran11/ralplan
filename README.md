@@ -42,10 +42,23 @@ result <-
   execute( 
     plan, 
     resource_pool = list(cook = 1),
-    time_tracker_list = create_work_times(n = 60,1)
+    timeslots = create_work_times(n = 60,1)
   )
 
 plot_executed_plan(result)
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+``` r
+result <- 
+  execute( 
+    plan, 
+    resource_pool = list(cook = 2),
+    timeslots = create_work_times(n = 60,1)
+  )
+
+plot_executed_plan(result)
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />

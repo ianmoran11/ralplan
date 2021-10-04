@@ -20,15 +20,17 @@ knitr::opts_chunk$set(
 
 ```{r ,echo = FALSE, message=FALSE, warning=FALSE}
 rm(list = ls())
-library(devtools)
-library(lubridate)
-library(ralget)
-library(tidyverse)
-library(tidygraph)
-library(ralplan)
+library("usethis")
+library("devtools")
+library("styler")
+library("microbenchmark")
+library("lubridate")
+library("tidyverse")
+library("ggdag")
 options(width = 180)
-reverse_min <- function(x){-min(as.numeric(x))}
 load_all()
+library(ralget)
+reverse_min <- function(x){-min(as.numeric(x))}
 ```
 
 ```{r , message=FALSE, warning=FALSE}
@@ -66,14 +68,24 @@ plot(form(plan))
 ```
 
 
-```{r example, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 result <- 
   execute( 
     plan, 
     resource_pool = list(cook = 1),
-    time_tracker_list = create_work_times(n = 60,1)
+    timeslots = create_work_times(n = 60,1)
   )
 
 plot_executed_plan(result)
+```
 
+```{r, message=FALSE, warning=FALSE}
+result <- 
+  execute( 
+    plan, 
+    resource_pool = list(cook = 2),
+    timeslots = create_work_times(n = 60,1)
+  )
+
+plot_executed_plan(result)
 ```

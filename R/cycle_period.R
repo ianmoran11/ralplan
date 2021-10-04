@@ -3,30 +3,42 @@
 #' @param ...  objects stored as vertex attributes.
 #' @export
 
-cycle_period <- function(p_list,time_tracker){
+cycle_period <- function(p_list, time_tracker) {
 
   # browser()
-    plan          <- p_list[[1]]
-    resource_pool <- p_list[[2]]
-    # time_tracker  <- p_list[[3]]
+  # Extract elements of p list
+  plan <- p_list[[1]]
+  resource_pool <- p_list[[2]]
 
-    formed_plan_03 <- plan %>% update_status() %>% filter(!outstanding_deps & (executed == FALSE)) %>% arrange(desc(priority))
+  # Re-evaluate executability
+  executable_plan <- plan %>%
+    update_status() %>%
+    filter(!outstanding_deps & (executed == FALSE)) %>%
+    arrange(desc(priority))
+  
+  executable_tasks <- pull(executable_plan, name)
 
-    plan_resource <- list(formed_plan_03, resource_pool,time_tracker)
-    round <- append(list(plan_resource), pull(formed_plan_03,name)) %>% reduce(try_task) 
+  # Prepare for tasks accumulator
+  plan_resource <- list(executable_plan, resource_pool, time_tracker)
 
-    updated_plan_tbl <- 
-    plan %>% 
-        as_tibble() %>% 
-        filter(!name %in% pull(round[[1]],name)) %>%
-        bind_rows(as_tibble(round[[1]]))
+  # apply for tasks accumulator
+  executed_tasks <- append(list(plan_resource), executable_tasks) %>%
+    reduce(try_task) %>%
+    .[[1]]
 
-    p <- plan %>% select(name) %>% left_join(updated_plan_tbl)
+  # Join newly executed tasks with non-executed tasks
+  all_tasks_updated <-
+    plan %>%
+    as_tibble() %>%
+    filter(!name %in% executable_tasks) %>%
+    bind_rows(as_tibble(executed_tasks))
 
-    time_tracker$start_time <- time_tracker$start_time + time_tracker$interval
-     
-    p_list <-  list(p,resource_pool)
+  # Join to tidygraph object
+  plan <- suppressMessages(plan %>% select(name) %>% left_join(all_tasks_updated))
 
-    p_list
+  # Add time record
+  plan <- plan %>% mutate(start_time = time_tracker$start_time)
+
+  # Return as list
+  list(plan, resource_pool)
 }
-# exectue tasks and update resources
