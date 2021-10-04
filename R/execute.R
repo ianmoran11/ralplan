@@ -11,5 +11,11 @@ p_list <- list(
 
 result <- append(list(p_list), time_tracker_list) %>% accumulate(cycle_period)
 
-result
+comined <- 
+map2(
+  result %>% map(c(1)) %>% .[-1] %>% map(~ .x %>% mutate(one = 1)),
+  map(time_tracker_list,as_tibble) %>% map(~ .x %>% mutate(one = 1)), 
+  ~ left_join(.x,.y))
+
+comined
 }
