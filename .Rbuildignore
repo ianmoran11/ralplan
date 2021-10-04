@@ -1,1 +1,6 @@
 ^README\.Rmd$
+^.*\.Rproj$
+^\.Rproj\.user$
+^ralplan\.Rcheck$
+^ralplan.*\.tar\.gz$
+^ralplan.*\.tgz$

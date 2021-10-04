@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -38,23 +40,57 @@ devtools::install_github("ianmoran11/ralplan")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r example, message=FALSE, warning=FALSE}
+library(devtools)
+library(lubridate)
+library(ralget)
+library(tidyverse)
+library(tidygraph)
 library(ralplan)
-## basic example code
+
+Ta <- T(name = "a", time = duration("6 hours"), priority = 10, resources = list(ian   = 1))
+Tb <- T(name = "b", time = duration("4 hours"), priority = 10, resources = list(john  = 1))
+Tc <- T(name = "c", time = duration("3 hours"), priority = 4 , resources = list(ian  = 1))
+Td <- T(name = "d", time = duration("1 hours"), priority = 1 , resources = list(geoff = 1))
+Te <- T(name = "e", time = duration("1 hours"), priority = 2 , resources = list(geoff = 1))
+
+plan <- Ta(once(Tb), once(Tc)) + Tb(after(Td)) + Tc(after(Td),after(Te)) 
+
+formed_plan <- form(plan)
+plot(formed_plan)
+
+# order tasks extract .attrs -----------------------------------------
+formed_plan_01 <- order_plan(formed_plan)
+resource_pool <- list(ian = 1, john = 1, geoff = 1)
+time_tracker_list <- create_work_times(80,15)
+
+plan <- update_status(formed_plan_01)
+# Identify potential tasks-------------------------------------------------------------- 
+p_list <-  list(plan,resource_pool)
+
+result <- append(list(p_list), time_tracker_list) %>% accumulate(cycle_period)
+
+comined <- 
+map2(
+  result %>% map(c(1)) %>% .[-1] %>% map(~ .x %>% mutate(one = 1)),
+  map(time_tracker_list,as_tibble) %>% map(~ .x %>% mutate(one = 1)), 
+  ~ left_join(.x,.y))
+
+bind_rows(map(comined,as_tibble)) %>%
+  unnest(time) %>%
+  ggplot(aes(x = start_time, y = time, color = name, group = name)) + geom_line()
+
 ```
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
+```{r cars, message=FALSE, warning=FALSE}
+bind_rows(map(comined,as_tibble)) %>%
+  unnest(time) %>%
+  group_by(name) %>%
+  mutate(time_diff = -(time - lag(time,n = 1,order_by = start_time) )) %>%
+  filter(!is.na(time_diff)) %>%
+  ggplot(aes(x = start_time, y = name, fill = time_diff)) + 
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "white", high = "black")
 ```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

@@ -1,4 +1,34 @@
-rm(list = ls())
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# ralplan
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of ralplan is to …
+
+## Installation
+
+You can install the released version of ralplan from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("ralplan")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("ianmoran11/ralplan")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
 library(devtools)
 library(lubridate)
 library(ralget)
@@ -16,7 +46,11 @@ plan <- Ta(once(Tb), once(Tc)) + Tb(after(Td)) + Tc(after(Td),after(Te))
 
 formed_plan <- form(plan)
 plot(formed_plan)
+```
 
+<img src="man/figures/README-example-1.png" width="100%" />
+
+``` r
 # order tasks extract .attrs -----------------------------------------
 formed_plan_01 <- order_plan(formed_plan)
 resource_pool <- list(ian = 1, john = 1, geoff = 1)
@@ -37,7 +71,14 @@ map2(
 bind_rows(map(comined,as_tibble)) %>%
   unnest(time) %>%
   ggplot(aes(x = start_time, y = time, color = name, group = name)) + geom_line()
+```
 
+<img src="man/figures/README-example-2.png" width="100%" />
+
+What is special about using `README.Rmd` instead of just `README.md`?
+You can include R chunks like so:
+
+``` r
 bind_rows(map(comined,as_tibble)) %>%
   unnest(time) %>%
   group_by(name) %>%
@@ -46,9 +87,6 @@ bind_rows(map(comined,as_tibble)) %>%
   ggplot(aes(x = start_time, y = name, fill = time_diff)) + 
   geom_tile(color = "white") +
   scale_fill_gradient(low = "white", high = "black")
+```
 
-
-
-
-
-
+<img src="man/figures/README-cars-1.png" width="100%" />
