@@ -1,10 +1,13 @@
 rm(list = ls())
+library(devtools) 
+install()
 library(devtools)
 library(lubridate)
 library(ralget)
 library(tidyverse)
 library(tidygraph)
 library(ralplan)
+load_all()
 
 Ta <- T(name = "a", time = duration("6 hours"), priority = 10, resources = list(ian   = 1))
 Tb <- T(name = "b", time = duration("4 hours"), priority = 10, resources = list(john  = 1))
@@ -14,19 +17,13 @@ Te <- T(name = "e", time = duration("1 hours"), priority = 2 , resources = list(
 
 plan <- Ta(once(Tb), once(Tc)) + Tb(after(Td)) + Tc(after(Td),after(Te)) 
 
-formed_plan <- form(plan)
-plot(formed_plan)
+result <- 
+  execute( 
+    plan, 
+    resource_pool = list(cook = 1),
+    time_tracker_list = create_work_times(n = 60,1),
+  )
 
-# order tasks extract .attrs -----------------------------------------
-formed_plan_01 <- order_plan(formed_plan)
-resource_pool <- list(ian = 1, john = 1, geoff = 1)
-time_tracker_list <- create_work_times(80,15)
-
-plan <- update_status(formed_plan_01)
-# Identify potential tasks-------------------------------------------------------------- 
-p_list <-  list(plan,resource_pool)
-
-result <- append(list(p_list), time_tracker_list) %>% accumulate(cycle_period)
 
 comined <- 
 map2(
@@ -48,7 +45,6 @@ bind_rows(map(comined,as_tibble)) %>%
   scale_fill_gradient(low = "white", high = "black")
 
 
+library(microbenchmark)
 
-
-
-
+microbenchmark(append(list(p_list), time_tracker_list) %>% accumulate(cycle_period), times = 1)

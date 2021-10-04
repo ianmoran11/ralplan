@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 # ralplan
 
 ```{r ,echo = FALSE, message=FALSE, warning=FALSE}
+rm(list = ls())
 library(devtools)
 library(lubridate)
 library(ralget)
