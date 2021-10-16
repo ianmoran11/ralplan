@@ -8,18 +8,18 @@
 List the name, duration, priority and resources required for your tasks.
 
 ``` r
-A  <- T(name = "A",time =  duration("1 hour"), priority = 1, resources = list(R1 = 1))
-B  <- T(name = "B",time =  duration("2 hour"), priority = 1, resources = list(R1 = 1))
-C  <- T(name = "C",time =  duration("1 hour"), priority = 1, resources = list(R1 = 1))
-D  <- T(name = "D",time =  duration("3 hour"), priority = 1, resources = list(R1 = 1))
-E  <- T(name = "E",time =  duration("1 hour"), priority = 1, resources = list(R1 = 1))
-F  <- T(name = "F",time =  duration("2 hour"), priority = 1, resources = list(R1 = 1))
-G  <- T(name = "G",time =  duration("2 hour"), priority = 1, resources = list(R2 = 1))
-H  <- T(name = "H",time =  duration("1 hour"), priority = 1, resources = list(R2 = 1))
-I  <- T(name = "I",time =  duration("1.5 hour"), priority = 1, resources = list(R2 = 1))
-J  <- T(name = "J",time =  duration("1 hour"), priority = 1, resources = list(R2 = 1))
-K  <- T(name = "K",time =  duration("3 hour"), priority = 1, resources = list(R2 = 1))
-L  <- T(name = "L",time =  duration("1 hour"), priority = 1, resources = list(R2 = 1))
+A  <- T(name = "A",time =  duration("1 hour"),  priority = 1, resources = list(R1 = 1))
+B  <- T(name = "B",time =  duration("2 hour"),  priority = 1, resources = list(R1 = 1))
+C  <- T(name = "C",time =  duration("1 hour"),  priority = 1, resources = list(R1 = 1))
+D  <- T(name = "D",time =  duration("3 hour"),  priority = 1, resources = list(R1 = 1))
+E  <- T(name = "E",time =  duration("1 hour"),  priority = 1, resources = list(R1 = 1))
+F  <- T(name = "F",time =  duration("2 hour"),  priority = 1, resources = list(R1 = 1))
+G  <- T(name = "G",time =  duration("2 hour"),  priority = 1, resources = list(R2 = 1))
+H  <- T(name = "H",time =  duration("1 hour"),  priority = 1, resources = list(R2 = 1))
+I  <- T(name = "I",time =  duration("1.5 hour"),priority = 1, resources = list(R2 = 1))
+J  <- T(name = "J",time =  duration("1 hour"),  priority = 1, resources = list(R2 = 1))
+K  <- T(name = "K",time =  duration("3 hour"),  priority = 1, resources = list(R2 = 1))
+L  <- T(name = "L",time =  duration("1 hour"),  priority = 1, resources = list(R2 = 1))
 ```
 
 ## Specify task dependencies
