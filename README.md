@@ -5,7 +5,7 @@
 
 ## Specify tasks
 
-List the name, duration, priority and resources required for yourtasks.
+List the name, duration, priority and resources required for your tasks.
 
 ``` r
 A  <- T(name = "A",time =  duration("1 hour"), priority = 1, resources = list(R1 = 1))
@@ -41,7 +41,7 @@ plan <-
 
 ## Execute your plan
 
-Specify the resourcews you have available and your blocks of time, then
+Specify the resources you have available and your blocks of time, then
 plot the result.
 
 ``` r

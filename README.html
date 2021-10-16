@@ -29,7 +29,7 @@ body {
 
 <h1 id="ralplan">ralplan</h1>
 <h2 id="specify-tasks">Specify tasks</h2>
-<p>List the name, duration, priority and resources required for yourtasks.</p>
+<p>List the name, duration, priority and resources required for your tasks.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>A  <span class="ot">&lt;-</span> <span class="fu">T</span>(<span class="at">name =</span> <span class="st">&quot;A&quot;</span>,<span class="at">time =</span>  <span class="fu">duration</span>(<span class="st">&quot;1 hour&quot;</span>), <span class="at">priority =</span> <span class="dv">1</span>, <span class="at">resources =</span> <span class="fu">list</span>(<span class="at">R1 =</span> <span class="dv">1</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>B  <span class="ot">&lt;-</span> <span class="fu">T</span>(<span class="at">name =</span> <span class="st">&quot;B&quot;</span>,<span class="at">time =</span>  <span class="fu">duration</span>(<span class="st">&quot;2 hour&quot;</span>), <span class="at">priority =</span> <span class="dv">1</span>, <span class="at">resources =</span> <span class="fu">list</span>(<span class="at">R1 =</span> <span class="dv">1</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>C  <span class="ot">&lt;-</span> <span class="fu">T</span>(<span class="at">name =</span> <span class="st">&quot;C&quot;</span>,<span class="at">time =</span>  <span class="fu">duration</span>(<span class="st">&quot;1 hour&quot;</span>), <span class="at">priority =</span> <span class="dv">1</span>, <span class="at">resources =</span> <span class="fu">list</span>(<span class="at">R1 =</span> <span class="dv">1</span>))</span>
@@ -54,7 +54,7 @@ body {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">I</span>(<span class="fu">after</span>(H)) <span class="sc">+</span> </span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">H</span>(<span class="fu">after</span>(G))</span></code></pre></div>
 <h2 id="execute-your-plan">Execute your plan</h2>
-<p>Specify the resourcews you have available and your blocks of time, then plot the result.</p>
+<p>Specify the resources you have available and your blocks of time, then plot the result.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">execute</span>( </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    plan, </span>

@@ -36,7 +36,7 @@ reverse_min <- function(x){-min(as.numeric(x))}
 ```
 
 ## Specify tasks 
-List the name, duration, priority and resources required for yourtasks.
+List the name, duration, priority and resources required for your tasks.
 ```{r , message=FALSE, warning=FALSE}
 A  <- T(name = "A",time =  duration("1 hour"), priority = 1, resources = list(R1 = 1))
 B  <- T(name = "B",time =  duration("2 hour"), priority = 1, resources = list(R1 = 1))
@@ -70,7 +70,7 @@ plan <-
 ```
 
 ## Execute your plan
-Specify the resourcews you have available and your blocks of time, then plot the result.
+Specify the resources you have available and your blocks of time, then plot the result.
 ```{r, message=FALSE, warning=FALSE}
 result <- 
   execute( 
