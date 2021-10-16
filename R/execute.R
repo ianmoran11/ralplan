@@ -4,7 +4,7 @@
 #' @export
 
 execute <- function(plan, resource_pool, timeslots) {
-  # browser()
+ #  browser()
   # Create list of plan and resources for accumulation
   p_list <- list(
     plan = plan %>% form() %>% order_plan() %>% update_status(),
@@ -19,5 +19,19 @@ execute <- function(plan, resource_pool, timeslots) {
   result <- append(list(p_list), time_tracker_list) %>% accumulate(cycle_period)
 
   # Accumulate over time slots
-  result
+ comined <- result
+
+  insert_start_time <- comined[[2]][[1]] %>% pull(start_time) %>% .[[1]]
+  
+  bind_rows(map(comined,1) %>% map(as_tibble)) %>%
+    unnest(time) %>%
+    mutate(start_time = ifelse(is.na(start_time), insert_start_time,start_time) %>% lubridate::as_datetime()) %>% 
+    group_by(name) %>%
+    mutate(time_diff = -(time - lag(time,n = 1,order_by = start_time) )) %>%
+    filter(!is.na(time_diff) & time_diff != 0) %>%
+    ungroup() %>%
+    mutate(name = fct_reorder(name,start_time,.fun = reverse_min))
+
+
+
 }

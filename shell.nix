@@ -6,6 +6,7 @@ let
     packages = with rPackages; [
       ggplot2
       tidyverse
+      hrbrthemes
       tidybayes
       tidygraph
       usethis
@@ -17,6 +18,7 @@ let
       stringi
       covr
       languageserver
+      profvis
       DT
       ggdag
       microbenchmark
