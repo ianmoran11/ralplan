@@ -1,43 +1,14 @@
----
-output: github_document
-editor_options: 
-  chunk_output_type: console
----
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-
-```
-
-# ralplan
-
-```{r ,echo = FALSE, message=FALSE, warning=FALSE}
-rm(list = ls())
-library("usethis")
-library("devtools")
-library("styler")
-library("tidygraph")
-library("microbenchmark")
-library("lubridate")
-library("tidyverse")
-library("ggdag")
-library("profvis")
-options(width = 180)
-load_all()
+library(devtools)
+library(lubridate)
 library(ralget)
-reverse_min <- function(x){-min(as.numeric(x))}
-```
+library(tidyverse)
+library(tidygraph)
+library(ralplan)
+library(hrbrthemes)
+load_all()
 
-## Specify tasks 
-List the name, duration, priority and resources required for yourtasks.
-```{r , message=FALSE, warning=FALSE}
+reverse_min <- function(x){-min(as.numeric(x))}
 A  <- T(name = "A",time =  duration("1 hour"), priority = 1, resources = list(R1 = 1))
 B  <- T(name = "B",time =  duration("2 hour"), priority = 1, resources = list(R1 = 1))
 C  <- T(name = "C",time =  duration("1 hour"), priority = 1, resources = list(R1 = 1))
@@ -51,12 +22,9 @@ J  <- T(name = "J",time =  duration("1 hour"), priority = 1, resources = list(R2
 K  <- T(name = "K",time =  duration("3 hour"), priority = 1, resources = list(R2 = 1))
 L  <- T(name = "L",time =  duration("1 hour"), priority = 1, resources = list(R2 = 1))
 
-```
+C(after(B)) %>% pull(.attrs)
 
 
-## Specify task dependencies
-List your task dependences. (Your tasks from the previous step are now functions!)
-```{r , message=FALSE, warning=FALSE}
 plan <- 
  C(after(B)) + 
  B(after(A)) +
@@ -67,11 +35,8 @@ plan <-
  I(after(H)) + 
  H(after(G))
 
-```
+plot(form(plan))
 
-## Execute your plan
-Specify the resourcews you have available and your blocks of time, then plot the result.
-```{r, message=FALSE, warning=FALSE}
 result <- 
   execute( 
     plan, 
@@ -80,11 +45,8 @@ result <-
   )
 
 p <- plot_executed_plan(result)
-p + ggtitle("Activity Plan", "Resource1 = 1, Resource2 = 1") 
-```
+p + ggtitle("Activity Plan", "Ralplan Gantt") 
 
-### What if you had double the resources?
-```{r, message=FALSE, warning=FALSE}
 result <- 
   execute( 
     plan, 
@@ -93,5 +55,4 @@ result <-
   )
 
 p <- plot_executed_plan(result)
-p + ggtitle("Activity Plan", "Resource1 = 2, Resource2 = 2") 
-```
+p + ggtitle("Activity Plan", "Ralplan Gantt") 
